@@ -3,45 +3,52 @@ import { getImagesByQuery } from './js/pixabay-api.js';
 import {
   createGallery,
   clearGallery,
-  showLoader,
-  hideLoader,
-  showLoadMoreButton,
-  hideLoadMoreButton,
+  toggleLoader,
+  toggleLoadMoreButton,
+  refs,
 } from './js/render-functions.js';
 import { showError, showInfo } from './js/toaster.js';
 
-const form = document.querySelector('.form');
-const loadMoreBtn = document.querySelector('.load-more');
+const searchParams = {
+  query: '',
+  page: 1,
+  totalHits: 0,
+  loadedImages: 0,
+};
 
-let currentQuery = '';
-let currentPage = 1;
-let totalHits = 0;
-let loadedImages = 0;
-
-const PER_PAGE = 15;
-
-form.addEventListener('submit', async event => {
+refs.form.addEventListener('submit', async event => {
   event.preventDefault();
 
   const query = event.target.elements['search-text'].value.trim();
 
   if (!query) {
     clearGallery();
-    hideLoadMoreButton();
+    toggleLoadMoreButton(false);
     showError('Please enter a search query!');
     return;
   }
 
-  currentQuery = query;
-  currentPage = 1;
-  totalHits = 0;
-  loadedImages = 0;
+  searchParams.query = query;
+  searchParams.page = 1;
+  searchParams.loadedImages = 0;
 
   clearGallery();
-  hideLoadMoreButton();
+  toggleLoadMoreButton(false);
 
+  await fetchAndRenderImages();
+});
+
+refs.loadMoreBtn.addEventListener('click', async () => {
+  searchParams.page += 1;
+  toggleLoadMoreButton(false);
+
+  await fetchAndRenderImages(true);
+});
+
+async function fetchAndRenderImages(isLoadMore = false) {
+  toggleLoader(true);
   try {
-    const data = await getImagesByQuery(currentQuery, currentPage);
+    const data = await getImagesByQuery(searchParams.query, searchParams.page);
 
     if (data.hits.length === 0) {
       showError(
@@ -50,43 +57,31 @@ form.addEventListener('submit', async event => {
       return;
     }
 
-    totalHits = data.totalHits;
-    createGallery(data.hits);
-    loadedImages += data.hits.length;
-
-    if (loadedImages < totalHits) {
-      showLoadMoreButton();
+    if (searchParams.page === 1) {
+      searchParams.totalHits = data.totalHits;
     }
-  } catch (error) {
-    showError('Something went wrong. Please try again later.');
-  }
-});
-
-loadMoreBtn.addEventListener('click', async () => {
-  currentPage += 1;
-  hideLoadMoreButton();
-  showLoader();
-
-  try {
-    const data = await getImagesByQuery(currentQuery, currentPage);
 
     createGallery(data.hits);
-    loadedImages += data.hits.length;
+    searchParams.loadedImages += data.hits.length;
 
-    scrollPage();
+    if (isLoadMore) {
+      scrollPage();
+    }
 
-    if (loadedImages >= totalHits) {
-      hideLoadMoreButton();
-      showInfo("We're sorry, but you've reached the end of search results.");
+    if (searchParams.loadedImages >= searchParams.totalHits) {
+      toggleLoadMoreButton(false);
+      if (isLoadMore) {
+        showInfo("We're sorry, but you've reached the end of search results.");
+      }
     } else {
-      showLoadMoreButton();
+      toggleLoadMoreButton(true);
     }
   } catch (error) {
     showError('Something went wrong. Please try again later.');
   } finally {
-    hideLoader();
+    toggleLoader(false);
   }
-});
+}
 
 function scrollPage() {
   const galleryCard = document.querySelector('.gallery-item');
