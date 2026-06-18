@@ -1,0 +1,22 @@
+.input {
+  box-sizing: border-box;
+  width: 272px;
+  height: 40px;
+  border: 1px solid #808080;
+  border-radius: 4px;
+  padding: 8px 16px;
+  outline: none;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+  line-height: 24px;
+  color: #2e2f42;
+  transition: border-color var(--animation-duration) var(--timing-function);
+}
+
+.input:hover {
+  border-color: #000000;
+}
+
+.input:focus {
+  border-color: #4e75ff;
+}

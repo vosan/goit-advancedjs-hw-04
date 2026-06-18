@@ -1,0 +1,78 @@
+/* iziToast custom styles */
+.iziToast {
+  min-width: 302px !important;
+  width: auto !important;
+  min-height: 64px !important;
+  border-radius: 4px !important;
+}
+.iziToast-color-red {
+  background: #ef4040 !important;
+  border-bottom: 2px solid #ffbebe !important;
+}
+.iziToast-color-green {
+  background: #59a10d !important;
+  border-bottom: 2px solid #b5ea7c !important;
+}
+.iziToast-body {
+  display: flex !important;
+  align-items: center !important;
+  padding: 20px !important;
+  margin: 0 !important;
+}
+.iziToast-icon {
+  width: 24px !important;
+  height: 24px !important;
+  margin: 0 16px 0 0 !important;
+  position: static !important;
+  display: block !important;
+  background-size: contain !important;
+}
+.iziToast-icon.ico-error {
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolygon points='7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2'%3E%3C/polygon%3E%3Cline x1='15' y1='9' x2='9' y2='15'%3E%3C/line%3E%3Cline x1='9' y1='9' x2='15' y2='15'%3E%3C/line%3E%3C/svg%3E") !important;
+}
+.iziToast-icon.ico-success {
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M22 11.08V12a10 10 0 1 1-5.93-9.14'%3E%3C/path%3E%3Cpolyline points='22 4 12 14.01 9 11.01'%3E%3C/polyline%3E%3C/svg%3E") !important;
+}
+.iziToast-texts {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  margin: 0 !important;
+  white-space: nowrap !important;
+}
+.iziToast-title {
+  color: #fff !important;
+  font-family: 'Montserrat', sans-serif !important;
+  font-weight: 700 !important;
+  font-size: 16px !important;
+  line-height: 24px !important;
+  letter-spacing: 0.5px !important;
+  margin: 0 !important;
+  float: none !important;
+}
+.iziToast-message {
+  color: #fff !important;
+  font-family: 'Montserrat', sans-serif !important;
+  font-weight: 400 !important;
+  font-size: 16px !important;
+  line-height: 24px !important;
+  letter-spacing: 0.5px !important;
+  margin: 0 !important;
+  float: none !important;
+}
+.iziToast-close {
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='18' y1='6' x2='6' y2='18'%3E%3C/line%3E%3Cline x1='6' y1='6' x2='18' y2='18'%3E%3C/line%3E%3C/svg%3E") !important;
+  background-size: 16px !important;
+  opacity: 1 !important;
+  width: 16px !important;
+  height: 16px !important;
+  right: 20px !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+}
+.iziToast-progressbar > div {
+  background: #b51b1b !important;
+}
+.iziToast-color-green .iziToast-progressbar > div {
+  background: #326101 !important;
+}
