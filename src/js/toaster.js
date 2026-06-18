@@ -9,3 +9,10 @@ export function showError(message) {
     icon: 'ico-error',
   });
 }
+export function showInfo(message) {
+  iziToast.info({
+    title: 'Info',
+    message: message,
+    position: 'topRight',
+  });
+}
